@@ -1,3 +1,5 @@
+const registerRouter = require('./backend/router')
+
 module.exports = {
   css: {
     loaderOptions: {
@@ -7,6 +9,12 @@ module.exports = {
           @import "@/assets/scss/mixin.scss";
         `
       }
+    }
+  },
+  devServer: {
+    // start our custom node server to get the data from QQ server
+    before(app) {
+      registerRouter(app)
     }
   }
 }
