@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend">
+  <div class="recommend" v-loading:[loadingText]="loading">
     <scroll class="recommend-content">
       <div>
         <div class="slider-wrapper">
@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="recommend-list">
-          <h1 class="list-title">热门歌单推荐</h1>
+          <h1 class="list-title" v-show="!loading">熱門歌單推薦</h1>
           <ul>
             <li
               v-for="item in albums"
@@ -16,7 +16,7 @@
               :key="item.id"
             >
               <div class="icon">
-                <img width="60" height="60" :src="item.pic">
+                <img width="60" height="60" v-lazy="item.pic">
               </div>
               <div class="text">
                 <h2 class="name">
@@ -48,7 +48,13 @@
     data() {
       return {
         sliders: [],
-        albums: []
+        albums: [],
+        loadingText: '正在加載中..........'
+      }
+    },
+    computed: {
+      loading() {
+        return !this.sliders.length && !this.albums.length // if this two don't exist, then means not yet data return.
       }
     },
     // run our js program in script , and we want to run it in created(開始生命週期時，就發送請求) period
