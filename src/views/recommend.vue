@@ -1,25 +1,54 @@
 <template>
   <div class="recommend">
-    <div class="slider-wrapper">
-      <div class="slider-content">
-        <slider v-if="sliders.length" :sliders="sliders"></slider>
+    <scroll class="recommend-content">
+      <div>
+        <div class="slider-wrapper">
+          <div class="slider-content">
+            <slider v-if="sliders.length" :sliders="sliders"></slider>
+          </div>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul>
+            <li
+              v-for="item in albums"
+              class="item"
+              :key="item.id"
+            >
+              <div class="icon">
+                <img width="60" height="60" :src="item.pic">
+              </div>
+              <div class="text">
+                <h2 class="name">
+                  {{ item.username }}
+                </h2>
+                <p class="title">
+                  {{item.title}}
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </scroll>
   </div>
 </template>
 
 <script>
   import { getRecommend } from '@/service/recommend'
   import Slider from '@/components/base/slider/slider'
+  import Scroll from '@/components/base/scroll/scroll'
 
   export default {
     name: 'recommend',
     components: {
-      Slider
+      Slider,
+      Scroll
     },
     data() {
       return {
-        sliders: []
+        sliders: [],
+        albums: []
       }
     },
     // run our js program in script , and we want to run it in created(開始生命週期時，就發送請求) period
@@ -27,6 +56,7 @@
     async created() {
       const result = await getRecommend()
       this.sliders = result.sliders
+      this.albums = result.albums
     }
   }
 </script>
@@ -39,7 +69,7 @@
     overflow: scroll;
     .recommend-content {
       height: 100%;
-      overflow: hidden;
+      overflow: scroll;
       .slider-wrapper {
         position: relative;
         width: 100%;
