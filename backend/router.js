@@ -3,7 +3,7 @@
  * 对于从第三方接口返回的数据，我们会做一层数据处理，最终提供给前端的数据前端可以直接使用，无需再处理。这样也比较符合真实企业项目的开发规范，即数据的处理放在后端做，前端只做数据渲染和交互。
  */
 const axios = require('axios')
-//const pinyin = require('pinyin')
+const pinyin = require('pinyin')
 //const Base64 = require('js-base64').Base64
 // 获取签名方法
 const getSecuritySign = require('./sign')
@@ -110,7 +110,7 @@ function mergeSinger(singer) {
 function registerRouter(app) {
   registerRecommend(app)
 
-  //registerSingerList(app)
+  registerSingerList(app)
 
   //registerSingerDetail(app)
 
@@ -214,7 +214,7 @@ function registerRecommend(app) {
   })
 }
 
-/*
+
 // 注册歌手列表接口路由
 function registerSingerList(app) {
   app.get('/api/getSingerList', (req, res) => {
@@ -314,7 +314,7 @@ function registerSingerList(app) {
     })
   }
 }
-
+/*
 // 注册歌手详情接口路由
 function registerSingerDetail(app) {
   app.get('/api/getSingerDetail', (req, res) => {

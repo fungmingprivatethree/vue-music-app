@@ -12,7 +12,7 @@
     name: 'loading',
     data() {
       return {
-        title: '正在载入...'
+        title: '正在載入...'
       }
     },
     methods: {
