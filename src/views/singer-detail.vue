@@ -1,23 +1,42 @@
 <template>
   <div class="singer-detail">
+    <music-list
+      :songs="songs"
+      :title="title"
+      :pic="pic"
+    >
+    </music-list>
   </div>
 </template>
 
 <script>
   import { getSingerDetail } from '@/service/singer'
   import { processSongs } from '@/service/song'
+  import MusicList from '@/components/music-list/music-list'
 
   export default {
     name: 'singer-detail',
+    components: { MusicList },
     props: {
       singer: Object
+    },
+    data() {
+      return {
+        songs: []
+      }
+    },
+    computed: {
+      pic() {
+        return this.singer && this.singer.pic
+      },
+      title() {
+        return this.singer && this.singer.name
+      }
     },
     // send the request URL to QQ server to get the data
     async created() {
       const result = await getSingerDetail(this.singer)
-      console.log(result.songs)
-      const songs = await processSongs(result.songs)
-      console.log(songs)
+      this.songs = await processSongs(result.songs)
     }
   }
 </script>
