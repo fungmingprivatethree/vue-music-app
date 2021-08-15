@@ -34,8 +34,12 @@ export default function useShortcut(props, groupRef) {
     }
 
     function scrollTo(index) {
+        if (isNaN(index)) {
+            return
+        }
         // prevent the width is over and throw error : annot read property 'offsetWidth' of undefined
         index = Math.max(0, Math.min(shortcutList.value.length - 1, index))
+
         const targetEl = groupRef.value.children[index]
         const scroll = scrollRef.value.scroll
         scroll.scrollToElement(targetEl, 0)
