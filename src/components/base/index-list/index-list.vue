@@ -23,7 +23,7 @@
         </ul>
       </li>
     </ul>
-    <div class="fixed" v-show="fixedTitle">
+    <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
       <div class="fixed-title">{{fixedTitle}}</div>
     </div>
   </scroll>
@@ -45,12 +45,13 @@
       }
     },
     setup(props) { // pass "props" feature through setup() to js as the condition to keep trace the change
-      const { groupRef, onScroll, fixedTitle } = useFixed(props)
+      const { groupRef, onScroll, fixedTitle, fixedStyle } = useFixed(props)
 
       return {
         groupRef,
         onScroll,
-        fixedTitle
+        fixedTitle,
+        fixedStyle
       }
     }
   }
