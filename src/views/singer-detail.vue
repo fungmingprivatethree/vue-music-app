@@ -5,6 +5,7 @@
 
 <script>
   import { getSingerDetail } from '@/service/singer'
+  import { processSongs } from '@/service/song'
 
   export default {
     name: 'singer-detail',
@@ -14,7 +15,9 @@
     // send the request URL to QQ server to get the data
     async created() {
       const result = await getSingerDetail(this.singer)
-      console.log(result)
+      console.log(result.songs)
+      const songs = await processSongs(result.songs)
+      console.log(songs)
     }
   }
 </script>

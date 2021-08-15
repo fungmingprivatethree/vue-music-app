@@ -33,10 +33,10 @@ function getRandomVal(prefix = '') {
 }
 
 // 获取一个随机 uid
-//function getUid() {
-//  const t = (new Date()).getUTCMilliseconds()
-//  return '' + Math.round(2147483647 * Math.random()) * t % 1e10
-//}
+function getUid() {
+ const t = (new Date()).getUTCMilliseconds()
+ return '' + Math.round(2147483647 * Math.random()) * t % 1e10
+}
 
 // 对 axios get 请求的封装
 // 修改请求的 headers 值，合并公共请求参数
