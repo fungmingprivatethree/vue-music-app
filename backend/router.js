@@ -12,7 +12,7 @@ const ERR_OK = 0
 const token = 5381
 
 // 歌曲图片加载失败时使用的默认图片
-//const fallbackPicUrl = 'https://y.gtimg.cn/mediastyle/music_v11/extra/default_300x300.jpg?max_age=31536000'
+const fallbackPicUrl = 'https://y.gtimg.cn/mediastyle/music_v11/extra/default_300x300.jpg?max_age=31536000'
 
 // 公共参数
 const commonParams = {
@@ -52,7 +52,7 @@ function get(url, params) {
 
 // 对 axios post 请求的封装
 // 修改请求的 headers 值
-/*
+
 function post(url, params) {
   return axios.post(url, params, {
     headers: {
@@ -104,7 +104,7 @@ function mergeSinger(singer) {
   })
   return ret.join('/')
 }
-*/
+
 
 // 注册后端路由
 function registerRouter(app) {
@@ -112,21 +112,21 @@ function registerRouter(app) {
 
   registerSingerList(app)
 
-  //registerSingerDetail(app)
+  registerSingerDetail(app)
 
-  //registerSongsUrl(app)
+  registerSongsUrl(app)
 
-  //registerLyric(app)
+  registerLyric(app)
 
-  //registerAlbum(app)
+  registerAlbum(app)
 
-  //registerTopList(app)
+  registerTopList(app)
 
-  //registerTopDetail(app)
+  registerTopDetail(app)
 
-  //registerHotKeys(app)
+  registerHotKeys(app)
 
-  //registerSearch(app)
+  registerSearch(app)
 }
 
 // 注册推荐列表接口路由
@@ -314,7 +314,7 @@ function registerSingerList(app) {
     })
   }
 }
-/*
+
 // 注册歌手详情接口路由
 function registerSingerDetail(app) {
   app.get('/api/getSingerDetail', (req, res) => {
@@ -721,5 +721,5 @@ function registerSearch(app) {
     })
   })
 }
-*/
+
 module.exports = registerRouter
