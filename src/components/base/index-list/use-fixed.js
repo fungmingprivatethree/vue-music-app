@@ -1,10 +1,12 @@
 import { ref, watch, computed, nextTick } from 'vue'
 
 export default function useFixed(props) {
+    const TITLE_HEIGHT = 30
     const groupRef = ref(null)
     const listHeights = ref([])
     const scrollY = ref(0) // Y-coordinate when sroll it down
     const currentIndex = ref(0)
+    const distance = ref(0)
 
     const fixedTitle = computed(() => {
         if (scrollY.value < 0) {
@@ -12,6 +14,15 @@ export default function useFixed(props) {
         }
         const currentGroup = props.data[currentIndex.value]
         return currentGroup ? currentGroup.title : ''
+    })
+
+    const fixedStyle = computed(() => {
+        const distanceVal = distance.value
+        const diff = (distanceVal > 0 && distanceVal < TITLE_HEIGHT) ? distanceVal - TITLE_HEIGHT : 0
+        return {
+            // use CSS transform feature to implement this effect
+            transform: `translate3d(0, ${diff}px, 0)`
+        }
     })
 
     watch(() => props.data, async () => {
@@ -29,6 +40,7 @@ export default function useFixed(props) {
             const heightBottom = listHeightsVal[i + 1]
             if (newY >= heightTop && newY <= heightBottom) {
                 currentIndex.value = i // get the title of the region
+                distance.value = heightBottom - newY
             }
         }
     })
@@ -56,6 +68,7 @@ export default function useFixed(props) {
     return {
         groupRef,
         onScroll,
-        fixedTitle
+        fixedTitle,
+        fixedStyle
     }
 }
